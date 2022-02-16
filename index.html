@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test HTML</title>
+
+  <style>
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    
+    main {
+      padding-top: 2rem;
+      padding-bottom: 20rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    
+    a {
+      color: #363636;
+      display: block;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Soal 1</h1>
+    <hr/>
+    <div id="test-1" style="margin-top: 20px;"></div>
+    <h1 style="margin-bottom: 20px;">Soal 3</h1>
+    <hr/>
+    <div style="margin-bottom: 30px;margin-top: 20px;">
+      <div style="margin-bottom: 20px;">
+        <label><b>Name</b> : </label>
+        <input type="text" onkeyup="inputTable(event, 'nama')">
+      </div>
+      <div style="margin-bottom: 20px;">
+        <label><b>Umur</b> : </label>
+        <input type="text" onkeyup="inputTable(event, 'umur')">
+      </div>
+      <div style="margin-bottom: 20px;">
+        <label><b>Kelamin</b> : </label>
+        <div style="display: inline-block;">
+          <input type="radio" name="kelamin" onchange="inputTable(event, 'kelamin')" value="pria">
+          <label>Pria</label>
+        </div>
+        <div style="display: inline-block;">
+          <input type="radio" name="kelamin" onchange="inputTable(event, 'kelamin')" value="wanita">
+          <label>Wanita</label>
+        </div>
+      </div>
+      <div style="margin-bottom: 20px;">
+        <label><b>pekerjaan</b> : </label>
+        <input type="text" onkeyup="inputTable(event, 'pekerjaan')">
+      </div>
+      <div style="margin-bottom: 20px;">
+        <button style="margin-right: 10px;" onclick="handlerTable('submit')">Submit</button>
+        <button style="margin-right: 10px;" onclick="handlerTable('sort_nama')">Sort Nama</button>
+        <button style="margin-right: 10px;" onclick="handlerTable('sort_umur')">Sort Umur</button>
+        <button style="margin-right: 10px;" onclick="handlerTable('sort_kelamin')">Sort Kelamin</button>
+        <button style="margin-right: 10px;" onclick="handlerTable('sort_pekerjaan')">Sort Pekerjaan</button>
+      </div>
+
+      <table border="1">
+        <thead>
+          <td id="table_head_nama">Nama</td>
+          <td id="table_head_umur">Umur</td>
+          <td id="table_head_kelamin">Kelamin</td>
+          <td id="table_head_pekerjaan">Pekerjaan</td>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+      </table>
+      
+    </div>
+    <hr/>
+    <h1 style="margin-bottom: 20px;margin-top: 20px;">Soal 4</h1>
+    <div id="soal-4"></div>
+    <h1 style="margin-bottom: 20px;margin-top: 20px;">Soal 5 - Mata Uang</h1>
+    <div style="margin-bottom: 20px;">
+      <label><b>Rp</b> : </label>
+      <input type="number" onkeyup="inputCurrency(event)">
+      <h4 id="mata_uang" style="margin-top: 20px;"></h4>
+    </div>
+    <h1 style="margin-bottom: 20px;margin-top: 20px;">Soal 6 - Multiply</h1>
+    <code>
+      function multiply(num1, num2) { <br>
+      &nbsp;&nbsp;return num1/(1/num2); <br>
+      }
+    </code>
+    <div style="margin-top: 20px;margin-bottom: 20px;">
+      <label><b>A 5; B 4</b></label>
+    </div>
+    <h4 id="soal6" style="margin-top: 20px;"></h4>
+    <h1 style="margin-top: 20px;margin-bottom: 20px;">Soal 7</h1>
+    <h4 id="fibonci-number"></h4>
+  </main>
+
+  <script>
+    (function test1(){
+      var html1 = '';
+      var start = new Date(2022, 02, 16, 9, 26, 46, 00);
+      var end = new Date(2022, 02, 16, 18, 35, 55, 00);
+
+      var loop = start;
+      while (loop <= end) {
+        console.log(loop);
+        html1 += '<p style="margin-bottom: 10px;">' + loop + '</p>';
+        loop.setTime(loop.getTime() + 1000 * 60);
+        loop.setHours(loop.getHours() + 1);
+        loop.setMilliseconds(loop.getMilliseconds() + 20 * 60)
+      }
+
+      document.getElementById('test-1').innerHTML = html1;
+    })()
+
+    var table = [];
+    var nama = '';
+    var umur = '';
+    var kelamin = '';
+    var pekerjaan = '';
+
+    function inputTable(event, type) {
+      switch (type) {
+        case 'nama':
+          nama = event.target.value;
+        break;
+        case 'umur':
+          umur = event.target.value;
+        break;
+        case 'kelamin':
+          kelamin = event.target.value;
+        break;
+        case 'pekerjaan':
+          pekerjaan = event.target.value;
+        break;
+      }
+
+      console.log(event.target.value)
+    }
+
+    function insertTable() {
+      var html2 = '';
+
+      table.map((value, index) => {
+        console.log('value', value)
+        html2 += value
+      })
+      
+      document.getElementById('tableBody').innerHTML = html2;
+    }
+
+    function handlerTable(type) {
+      switch (type) {
+        case 'submit':
+          table.push(`
+            <tr>
+              <td>${nama}</td>
+              <td>${umur}</td>
+              <td>${kelamin}</td>
+              <td>${pekerjaan}</td>
+            </tr>
+          `)
+          insertTable()
+        break;
+        case 'sort_nama':
+          document.getElementById('table_head_nama').click();
+        break;
+        case 'sort_umur':
+          document.getElementById('table_head_umur').click();
+        break;
+        case 'sort_kelamin':
+          document.getElementById('table_head_kelamin').click();
+        break;
+        case 'sort_pekerjaan':
+          document.getElementById('table_head_pekerjaan').click();
+        break;
+      }
+
+    }
+
+  function sortTable(table, col, reverse) {
+    var tb = table.tBodies[0], // use `<tbody>` to ignore `<thead>` and `<tfoot>` rows
+      tr = Array.prototype.slice.call(tb.rows, 0), // put rows into array
+      i;
+    reverse = -((+reverse) || -1);
+    tr = tr.sort(function (a, b) { // sort rows
+      return reverse // `-1 *` if want opposite order
+        * (a.cells[col].textContent.trim() // using `.textContent.trim()` for test
+          .localeCompare(b.cells[col].textContent.trim())
+        );
+    });
+    for (i = 0; i < tr.length; ++i) tb.appendChild(tr[i]); // append each row in order
+  }
+
+  function makeSortable(table) {
+    var th = table.tHead, i;
+    th && (th = th.rows[0]) && (th = th.cells);
+    if (th) i = th.length;
+    else return; // if no `<thead>` then do nothing
+    while (--i >= 0) (function (i) {
+      var dir = 1;
+      th[i].addEventListener('click', function () { sortTable(table, i, (dir = 1 - dir)) });
+    }(i));
+  }
+
+  function makeAllSortable(parent) {
+    parent = parent || document.body;
+    var t = parent.getElementsByTagName('table'), i = t.length;
+    while (--i >= 0) makeSortable(t[i]);
+  }
+
+  window.onload = function () { makeAllSortable(); };
+
+  (function() {
+    // soal 3
+    var html3 = '';
+    for (let i = 1; i <= 100; i++) {
+      let out = '';
+      if (i % 3 === 0) out += 'Fizz';
+      if (i % 5 === 0) out += 'Buzz';
+      console.log(out || i);
+      html3 += `<p>${out}</p>`;
+    }
+
+    document.getElementById('soal-4').innerHTML = html3;
+  }())
+
+  function inputCurrency(event) {
+    const rupiah = (number) => {
+      return new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR"
+      }).format(number);
+    }
+
+    console.log(rupiah(event.target.value))
+
+    document.getElementById('mata_uang').innerHTML = rupiah(event.target.value);
+  }
+
+  function multiply(num1, num2) {
+    var calc = num1/(1/num2);
+    document.getElementById('soal6').innerHTML = calc;
+    return calc;
+  }
+
+  console.log(multiply(5,4))
+
+  var fibonci = function (n) {
+    if (n === 1) {
+      return [0, 1];
+    }
+    else {
+      var s = fibonci(n - 1);
+      s.push(s[s.length - 1] + s[s.length - 2]);
+      return s;
+    }
+  };
+
+  document.getElementById('fibonci-number').innerHTML = fibonci(10)
+
+  console.log(fibonci(8));
+  </script>
+</body>
+</html>
+
